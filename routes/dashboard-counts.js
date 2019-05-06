@@ -26,9 +26,9 @@ let onComplete = function(data) {
 },onError,onComplete); */
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   //res.send('respond with a resource');
-	request.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vRXMialXNW2fvJTtdfZeyMBaJGz50-fJYuQGPE-cGeXpFFhhl6j20C8mOmiIO6GjUO6E5PwIKqQGLOv/pub?gid=0&single=true&output=csv', function (error, response, body) {
+	request.get('https://docs.google.com/spreadsheets/d/e/2PACX-1vTRmcyoTC7mfqchiz9Xflwksy7hCLt0KFLJuObS_K_o0BK2IpcuL-ZFWnqCSOuq2cotxirRL7kGpHgV/pub?output=csv', function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 		    var csv1 = body;
 		    // Continue with your processing here.
@@ -39,29 +39,17 @@ router.get('/', function(req, res, next) {
 	})
 	.fromString(csv1)
 	.then((csvRow)=>{ 
-		var courses = [];
-		lodash.each(csvRow,(row, index)=>{
-			if(index===0) {return;}
-			var data = {}
-			lodash.each(row,(r,i)=>{
-				if(isNaN(r)) {
-				data[csvRow[0][i]] = r
+		var data = {}
+		lodash.each(csvRow[0],(row, index)=>{
+			if(isNaN(csvRow[1][index])) {
+				data[row] = csvRow[1][index]
 			}
-				else {
-				data[csvRow[0][i]] = r *1
-				}	
-			})
-			courses.push(data)
-			
-		})
-		res.json({
-			data : {
-			total_pages:1,
-			page_number:1,
-			total_records : 5,
-			courses : courses
+			else {
+				data[row] = csvRow[1][index] * 1
 			}
 		})
+		//var res = {data : {}}
+		res.json({data})
 		//console.log(JSON.stringify(csvRow))
 		lodash.each(csvRow[0],(row)=>{
 		
