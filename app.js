@@ -21,6 +21,8 @@ var soiEngagement = require('./routes/soi-engagement')
 var allStudentEngagement = require('./routes/all-students-engagement');
 var coiEngagement = require('./routes/coi-engagement')
 var allCourseEngagement = require('./routes/all-courses-engagement')
+var demoCourse1Students = require('./routes/demo-course-1-students')
+var demoCourse2Students = require('./routes/demo-course-2-students')
 
 var app = express();
 
@@ -46,7 +48,9 @@ app.use('/reports/students/interest',soi);
 app.use('/reports/students/interest/course-attendance',soica)
 app.use('/reports/students/attendance',allStudentsAttendance)
 app.use('/reports/course/DEMO_COURSE_1', demoCourse1)
+app.use('/reports/course/DEMO_COURSE_1/students', demoCourse1Students)
 app.use('/reports/course/DEMO_COURSE_2', demoCourse2)
+app.use('/reports/course/DEMO_COURSE_2/students', demoCourse2Students)
 app.use('/reports/students/engagement/interest', soiEngagement)
 app.use('/reports/students/engagement',allStudentEngagement)
 app.use('/reports/courses/interest/engagement', coiEngagement)
