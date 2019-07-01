@@ -25,6 +25,10 @@ var demoCourse1Students = require('./routes/demo-course-1-students')
 var demoCourse2Students = require('./routes/demo-course-2-students')
 var sorenMayerAttendance = require('./routes/individual-student-attendance');
 var sorenMayerEngagement = require('./routes/individual-student-engagement');
+var courseAttendanceExport = require('./routes/course-attendance-export');
+var studentAttendanceExport = require('./routes/course-student-export');
+
+var token = require('./routes/token');
 
 var app = express();
 
@@ -59,6 +63,9 @@ app.use('/reports/courses/interest/engagement', coiEngagement)
 app.use('/reports/courses/engagement',allCourseEngagement)
 app.use('/reports/students/attendance/DEMO_STUDENT_1',sorenMayerAttendance)
 app.use('/reports/students/engagement/DEMO_STUDENT_1',sorenMayerEngagement)
+app.use('/reports/courses/attendance/export',courseAttendanceExport);
+app.use('/reports/students/attendance/export', studentAttendanceExport);
+app.use('/token', token);
 
 
 
